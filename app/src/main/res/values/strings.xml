@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Flam RnD Intern</string>
+    
+    <!-- Main Activity Strings -->
+    <string name="welcome_message">Welcome to Flam RnD Computer Vision App</string>
+    <string name="native_info_placeholder">Loading NDK information...</string>
+    <string name="opencv_info_placeholder">Loading OpenCV information...</string>
+    <string name="btn_camera_text">Open Camera</string>
+    <string name="btn_test_native_text">Test Native Functions</string>
+    
+    <!-- Camera Activity Strings -->
+    <string name="btn_capture_text">Capture Photo</string>
+    <string name="btn_toggle_processing_text">Start Processing</string>
+    <string name="btn_back_text">Back</string>
+    <string name="status_placeholder">Ready</string>
+    
+    <!-- Permission and Error Messages -->
+    <string name="camera_permission_required">Camera permission is required for this feature</string>
+    <string name="camera_permission_rationale">Camera permission is needed to capture and process images</string>
+    <string name="native_library_error">Error loading native library</string>
+    <string name="camera_init_failed">Camera initialization failed</string>
+    <string name="photo_capture_failed">Photo capture failed</string>
+    <string name="native_test_completed">Native functions test completed!</string>
+    
+    <!-- Status Messages -->
+    <string name="camera_initialized">Camera initialized successfully</string>
+    <string name="photo_captured">Photo captured successfully</string>
+    <string name="processing_on">Real-time processing: ON</string>
+    <string name="processing_off">Real-time processing: OFF</string>
+    <string name="start_processing">Start Processing</string>
+    <string name="stop_processing">Stop Processing</string>
+    <string name="image_processed_success">Image processed successfully with native code</string>
+    <string name="image_processing_failed">Native image processing failed</string>
+    
+    <!-- OpenCV Status -->
+    <string name="opencv_not_configured">OpenCV not configured yet</string>
+    <string name="opencv_version_format">OpenCV Version: %s</string>
+    
+    <!-- NDK Info -->
+    <string name="ndk_integration_failed">NDK integration failed</string>
+    <string name="opencv_integration_failed">OpenCV integration failed</string>
+    
+    <!-- Development and Debug -->
+    <string name="native_test_results_title">Native Test Results:</string>
+    <string name="frame_processing_status">Frame processed at %d</string>
+</resources>

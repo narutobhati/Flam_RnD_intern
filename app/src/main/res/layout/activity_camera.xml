@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    tools:context=".CameraActivity">
+
+    <!-- Camera Preview -->
+    <androidx.camera.view.PreviewView
+        android:id="@+id/viewFinder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/controls_layout" />
+
+    <!-- Status Text Overlay -->
+    <TextView
+        android:id="@+id/tv_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_margin="16dp"
+        android:text="@string/status_placeholder"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        android:background="@drawable/status_overlay_background"
+        android:padding="12dp"
+        android:gravity="center"
+        android:elevation="4dp" />
+
+    <!-- Processing Indicator -->
+    <View
+        android:id="@+id/processing_indicator"
+        android:layout_width="8dp"
+        android:layout_height="8dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="20dp"
+        android:background="@drawable/processing_indicator"
+        android:elevation="4dp"
+        android:visibility="gone" />
+
+    <!-- Controls Layout -->
+    <LinearLayout
+        android:id="@+id/controls_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:background="@drawable/controls_background"
+        android:padding="16dp"
+        android:elevation="4dp">
+
+        <!-- Primary Controls Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="12dp">
+
+            <!-- Back Button -->
+            <Button
+                android:id="@+id/btn_back"
+                android:layout_width="80dp"
+                android:layout_height="60dp"
+                android:text="@string/btn_back_text"
+                android:textSize="12sp"
+                android:background="@drawable/control_button_background"
+                android:textColor="@android:color/white"
+                android:layout_marginEnd="12dp"
+                android:drawableTop="@drawable/ic_back"
+                android:drawablePadding="4dp"
+                android:gravity="center" />
+
+            <!-- Capture Button -->
+            <Button
+                android:id="@+id/btn_capture"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="12dp"
+                android:text="@string/btn_capture_text"
+                android:textSize="12sp"
+                android:background="@drawable/capture_button_background"
+                android:textColor="@android:color/white"
+                android:drawableTop="@drawable/ic_camera_capture"
+                android:drawablePadding="4dp"
+                android:gravity="center"
+                android:elevation="2dp" />
+
+            <!-- Toggle Processing Button -->
+            <Button
+                android:id="@+id/btn_toggle_processing"
+                android:layout_width="80dp"
+                android:layout_height="60dp"
+                android:text="@string/btn_toggle_processing_text"
+                android:textSize="10sp"
+                android:background="@drawable/processing_button_background"
+                android:textColor="@android:color/white"
+                android:layout_marginStart="12dp"
+                android:drawableTop="@drawable/ic_process"
+                android:drawablePadding="4dp"
+                android:gravity="center" />
+
+        </LinearLayout>
+
+        <!-- Secondary Information Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <!-- FPS Counter -->
+            <TextView
+                android:id="@+id/tv_fps"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="FPS: --"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                android:gravity="start" />
+
+            <!-- Processing Status -->
+            <TextView
+                android:id="@+id/tv_processing_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Processing: OFF"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                android:gravity="center" />
+
+            <!-- Resolution Info -->
+            <TextView
+                android:id="@+id/tv_resolution"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="--x--"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                android:gravity="end" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Loading Overlay (initially hidden) -->
+    <FrameLayout
+        android:id="@+id/loading_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/loading_overlay"
+        android:visibility="gone"
+        android:elevation="8dp">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminateTint="@android:color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="80dp"
+            android:text="Initializing Camera..."
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+
+    </FrameLayout>
+
+</RelativeLayout>

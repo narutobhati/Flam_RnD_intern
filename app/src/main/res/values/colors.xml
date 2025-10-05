@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Colors -->
+    <color name="primary_color">#2196F3</color>
+    <color name="primary_dark">#1976D2</color>
+    <color name="primary_light">#BBDEFB</color>
+    
+    <!-- Secondary Colors -->
+    <color name="secondary_color">#FF9800</color>
+    <color name="secondary_dark">#F57C00</color>
+    <color name="secondary_light">#FFE0B2</color>
+    
+    <!-- Accent Colors -->
+    <color name="accent_color">#4CAF50</color>
+    <color name="accent_dark">#388E3C</color>
+    <color name="accent_light">#C8E6C9</color>
+    
+    <!-- Background Colors -->
+    <color name="background_light">#FAFAFA</color>
+    <color name="background_dark">#121212</color>
+    <color name="surface_light">#FFFFFF</color>
+    <color name="surface_dark">#1E1E1E</color>
+    
+    <!-- Card and Panel Colors -->
+    <color name="card_background">#FFFFFF</color>
+    <color name="info_card_background">#F5F5F5</color>
+    <color name="status_overlay">#80000000</color>
+    <color name="loading_overlay">#99000000</color>
+    
+    <!-- Button Colors -->
+    <color name="button_primary">#2196F3</color>
+    <color name="button_primary_pressed">#1976D2</color>
+    <color name="button_secondary">#FFFFFF</color>
+    <color name="button_secondary_pressed">#F5F5F5</color>
+    <color name="button_capture">#FF5722</color>
+    <color name="button_capture_pressed">#D84315</color>
+    <color name="button_processing">#4CAF50</color>
+    <color name="button_processing_pressed">#388E3C</color>
+    <color name="button_control">#607D8B</color>
+    <color name="button_control_pressed">#455A64</color>
+    
+    <!-- Text Colors -->
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+    <color name="text_hint">#BDBDBD</color>
+    <color name="text_on_primary">#FFFFFF</color>
+    <color name="text_on_secondary">#000000</color>
+    
+    <!-- Status and Indicator Colors -->
+    <color name="success">#4CAF50</color>
+    <color name="warning">#FF9800</color>
+    <color name="error">#F44336</color>
+    <color name="info">#2196F3</color>
+    
+    <!-- Processing Indicator -->
+    <color name="processing_active">#4CAF50</color>
+    <color name="processing_inactive">#9E9E9E</color>
+    
+    <!-- Camera UI Colors -->
+    <color name="camera_overlay">#80000000</color>
+    <color name="camera_controls">#CC000000</color>
+    
+    <!-- OpenCV Status Colors -->
+    <color name="opencv_configured">#4CAF50</color>
+    <color name="opencv_not_configured">#FF9800</color>
+    <color name="opencv_error">#F44336</color>
+    
+    <!-- NDK Status Colors -->
+    <color name="ndk_success">#4CAF50</color>
+    <color name="ndk_warning">#FF9800</color>
+    <color name="ndk_error">#F44336</color>
+</resources>

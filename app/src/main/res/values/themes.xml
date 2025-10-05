@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme -->
+    <style name="Theme.Flam_RnD_intern" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/primary_color</item>
+        <item name="colorPrimaryVariant">@color/primary_dark</item>
+        <item name="colorOnPrimary">@color/text_on_primary</item>
+        
+        <!-- Secondary brand color -->
+        <item name="colorSecondary">@color/secondary_color</item>
+        <item name="colorSecondaryVariant">@color/secondary_dark</item>
+        <item name="colorOnSecondary">@color/text_on_secondary</item>
+        
+        <!-- Background colors -->
+        <item name="android:colorBackground">@color/background_light</item>
+        <item name="colorSurface">@color/surface_light</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+        
+        <!-- Status bar -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        
+        <!-- Action bar -->
+        <item name="actionBarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        
+        <!-- Text appearances -->
+        <item name="textAppearanceHeadline1">@style/TextAppearance.App.Headline1</item>
+        <item name="textAppearanceHeadline2">@style/TextAppearance.App.Headline2</item>
+        <item name="textAppearanceBody1">@style/TextAppearance.App.Body1</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.App.Body2</item>
+    </style>
+
+    <!-- NoActionBar theme for camera -->
+    <style name="Theme.Flam_RnD_intern.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <!-- Text Appearance Styles -->
+    <style name="TextAppearance.App.Headline1" parent="TextAppearance.MaterialComponents.Headline1">
+        <item name="fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <style name="TextAppearance.App.Headline2" parent="TextAppearance.MaterialComponents.Headline2">
+        <item name="fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <style name="TextAppearance.App.Body1" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <style name="TextAppearance.App.Body2" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
+    <!-- Button Styles -->
+    <style name="Widget.App.Button.Primary" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">@color/text_on_primary</item>
+        <item name="backgroundTint">@color/button_primary</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="Widget.App.Button.Secondary" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:textColor">@color/primary_color</item>
+        <item name="strokeColor">@color/primary_color</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <!-- Card Styles -->
+    <style name="Widget.App.CardView" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">12dp</item>
+        <item name="cardElevation">4dp</item>
+        <item name="cardBackgroundColor">@color/card_background</item>
+        <item name="android:layout_margin">8dp</item>
+    </style>
+
+    <!-- Camera UI Styles -->
+    <style name="CameraButton">
+        <item name="android:layout_width">64dp</item>
+        <item name="android:layout_height">64dp</item>
+        <item name="android:background">@drawable/camera_button_background</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="CameraButton.Large">
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">80dp</item>
+    </style>
+
+    <style name="StatusText">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:background">@color/status_overlay</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!-- Info Card Styles -->
+    <style name="InfoCard">
+        <item name="android:background">@drawable/info_card_background</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:elevation">2dp</item>
+    </style>
+
+    <style name="InfoCard.Code">
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
+</resources>
