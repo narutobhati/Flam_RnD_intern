@@ -13,6 +13,8 @@ import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import com.flam.rnd.utils.OpenCVUtils
+import kotlin.system.measureTimeMillis
 
 class CameraActivity : AppCompatActivity() {
 
@@ -220,13 +222,23 @@ class CameraActivity : AppCompatActivity() {
             // Only process if real-time processing is enabled
             if (isProcessingEnabled) {
                 try {
-                    // Here you would convert ImageProxy to OpenCV Mat and process it
-                    // For now, just log the frame info
-                    Log.d(TAG, "Analyzing frame: ${image.width}x${image.height}")
-                    
-                    // Simulate native processing
-                    val processed = processImage(0L) // Placeholder
-                    
+                    val w = image.width
+                    val h = image.height
+                    var matAddr = 0L
+                    val convertMs = measureTimeMillis {
+                        matAddr = OpenCVUtils.imageProxyToMatAddress(image)
+                    }
+                    Log.d(TAG, "Analyzing frame: ${w}x${h}, convert ${convertMs}ms")
+
+                    var processed = false
+                    if (matAddr != 0L) {
+                        val processMs = measureTimeMillis {
+                            processed = OpenCVUtils.processImageWithOpenCV(matAddr)
+                        }
+                        Log.d(TAG, "Native processed in ${processMs}ms")
+                        OpenCVUtils.releaseMat(matAddr)
+                    }
+
                     if (processed) {
                         runOnUiThread {
                             updateStatus("Frame processed at ${System.currentTimeMillis()}")

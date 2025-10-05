@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.util.Log
 import androidx.camera.core.ImageProxy
+import kotlin.system.measureTimeMillis
 import java.nio.ByteBuffer
 
 /**
@@ -58,7 +59,12 @@ object OpenCVUtils {
         return try {
             when (image.format) {
                 android.graphics.ImageFormat.YUV_420_888 -> {
-                    convertYUV420ToMat(image)
+                    var matAddr = 0L
+                    val ms = measureTimeMillis {
+                        matAddr = convertYUV420ToMat(image)
+                    }
+                    Log.d(TAG, "YUV->RGBA conversion took ${ms}ms")
+                    matAddr
                 }
                 else -> {
                     Log.w(TAG, "Unsupported image format: ${image.format}")

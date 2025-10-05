@@ -12,18 +12,23 @@ project("flam_rnd_native")
 # You can define multiple libraries, and CMake builds them for you.
 # Gradle automatically packages shared libraries with your APK.
 
-# OpenCV configuration
-# Option 1: Using OpenCV SDK (uncomment and adjust path)
-# set(OpenCV_DIR "/path/to/opencv-android-sdk/sdk/native/jni")
-# find_package(OpenCV REQUIRED)
-
-# Option 2: Using prebuilt OpenCV static libraries (uncomment and adjust)
-# set(opencv_libs_dir "${CMAKE_CURRENT_SOURCE_DIR}/../app/src/main/jniLibs")
-# set(opencv_include_dir "${CMAKE_CURRENT_SOURCE_DIR}/../opencv/include")
+# OpenCV configuration (optional)
+# Provide OpenCV_DIR via Gradle/CMake configure to enable OpenCV
+if(DEFINED OpenCV_DIR)
+    message(STATUS "Using OpenCV from: ${OpenCV_DIR}")
+    find_package(OpenCV REQUIRED)
+    if(OpenCV_FOUND)
+        add_definitions(-DHAVE_OPENCV)
+        include_directories(${OpenCV_INCLUDE_DIRS})
+        message(STATUS "OpenCV include dirs: ${OpenCV_INCLUDE_DIRS}")
+        message(STATUS "OpenCV libs: ${OpenCV_LIBS}")
+    endif()
+else()
+    message(WARNING "OpenCV_DIR not set. Building without OpenCV. Native processing will be a no-op.")
+endif()
 
 # Include directories
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
-# include_directories(${opencv_include_dir})
 
 # Add your native source files here
 add_library( # Sets the name of the library.
@@ -69,14 +74,8 @@ target_link_libraries( # Specifies the target library.
         ${camera2ndk-lib}
         ${mediandk-lib}
         
-        # OpenCV libraries (uncomment when using OpenCV)
-        # ${OpenCV_LIBS}
-        
-        # Or link specific OpenCV static libraries
-        # opencv_core
-        # opencv_imgproc
-        # opencv_features2d
-        # opencv_imgcodecs
+        # OpenCV libraries (linked when available)
+        ${OpenCV_LIBS}
 )
 
 # Compiler-specific options
