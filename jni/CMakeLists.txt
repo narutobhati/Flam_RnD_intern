@@ -12,19 +12,16 @@ project("flam_rnd_native")
 # You can define multiple libraries, and CMake builds them for you.
 # Gradle automatically packages shared libraries with your APK.
 
-# OpenCV configuration (optional)
-# Provide OpenCV_DIR via Gradle/CMake configure to enable OpenCV
-if(DEFINED OpenCV_DIR)
-    message(STATUS "Using OpenCV from: ${OpenCV_DIR}")
-    find_package(OpenCV REQUIRED)
-    if(OpenCV_FOUND)
-        add_definitions(-DHAVE_OPENCV)
-        include_directories(${OpenCV_INCLUDE_DIRS})
-        message(STATUS "OpenCV include dirs: ${OpenCV_INCLUDE_DIRS}")
-        message(STATUS "OpenCV libs: ${OpenCV_LIBS}")
-    endif()
+# OpenCV configuration
+# Try to find OpenCV (from Maven dependency or local)
+find_package(OpenCV QUIET)
+if(OpenCV_FOUND)
+    add_definitions(-DHAVE_OPENCV)
+    include_directories(${OpenCV_INCLUDE_DIRS})
+    message(STATUS "OpenCV found: include dirs: ${OpenCV_INCLUDE_DIRS}")
+    message(STATUS "OpenCV libs: ${OpenCV_LIBS}")
 else()
-    message(WARNING "OpenCV_DIR not set. Building without OpenCV. Native processing will be a no-op.")
+    message(WARNING "OpenCV not found. Building without OpenCV. Native processing will be a no-op.")
 endif()
 
 # Include directories

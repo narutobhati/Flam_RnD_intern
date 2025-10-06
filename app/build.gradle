@@ -1,12 +1,12 @@
 plugins {
-    id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
+    id 'com.android.application' version '8.1.0'
+    id 'org.jetbrains.kotlin.android' version '1.8.0'
 }
 
 android {
     namespace 'com.flam.rnd'
     compileSdk 34
-
+    ndkVersion "26.1.10909125"
     defaultConfig {
         applicationId "com.flam.rnd"
         minSdk 24
@@ -56,12 +56,12 @@ android {
 
     // OpenCV SDK configuration
     // Uncomment and adjust path to your OpenCV SDK installation
-    // sourceSets {
-    //     main {
-    //         jniLibs.srcDirs = ['libs']
-    //         java.srcDirs = ['java']
-    //     }
-    // }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['src/main/jniLibs']
+           // java.srcDirs = ['java']
+        }
+    }
 }
 
 dependencies {
@@ -82,7 +82,10 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     
     // OpenCV Android SDK dependency (if using Maven)
-    // implementation 'org.opencv:opencv-android:4.8.0'
+    //implementation 'org.opencv:opencv:4.8.0'
+
+    // Alternative: Local OpenCV SDK
+    // implementation project(':opencv')
     
     // Alternative: Local OpenCV SDK
     // implementation project(':opencv')
