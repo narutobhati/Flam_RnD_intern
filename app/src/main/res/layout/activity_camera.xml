@@ -29,6 +29,17 @@
         android:gravity="center"
         android:elevation="4dp" />
 
+    <!-- Processed Preview (temporary overlay) -->
+    <ImageView
+        android:id="@+id/iv_processed"
+        android:layout_width="160dp"
+        android:layout_height="120dp"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="12dp"
+        android:scaleType="centerCrop"
+        android:background="@drawable/card_background"
+        android:elevation="6dp" />
+
     <!-- Processing Indicator -->
     <View
         android:id="@+id/processing_indicator"

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.*
@@ -32,12 +33,18 @@ class CameraActivity : AppCompatActivity() {
     private lateinit var btnProcessing: Button
     private lateinit var btnBack: Button
     private lateinit var tvStatus: TextView
+    private lateinit var tvFps: TextView
+    private lateinit var tvResolution: TextView
+    private lateinit var tvProcessingStatus: TextView
+    private lateinit var ivProcessed: ImageView
     
     private var imageCapture: ImageCapture? = null
     private var imageAnalyzer: ImageAnalysis? = null
     private lateinit var cameraExecutor: ExecutorService
     
     private var isProcessingEnabled = false
+    private var frameCount = 0
+    private var fpsStartTime = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +70,10 @@ class CameraActivity : AppCompatActivity() {
         btnProcessing = findViewById(R.id.btn_toggle_processing)
         btnBack = findViewById(R.id.btn_back)
         tvStatus = findViewById(R.id.tv_status)
+        tvFps = findViewById(R.id.tv_fps)
+        tvResolution = findViewById(R.id.tv_resolution)
+        tvProcessingStatus = findViewById(R.id.tv_processing_status)
+        ivProcessed = findViewById(R.id.iv_processed)
     }
 
     private fun setupClickListeners() {
@@ -169,6 +180,7 @@ class CameraActivity : AppCompatActivity() {
             "Real-time processing: OFF"
         }
         updateStatus(statusText)
+        tvProcessingStatus.text = if (isProcessingEnabled) "Processing: ON" else "Processing: OFF"
         
         val buttonText = if (isProcessingEnabled) {
             "Stop Processing"
@@ -176,6 +188,10 @@ class CameraActivity : AppCompatActivity() {
             "Start Processing"
         }
         btnProcessing.text = buttonText
+        if (isProcessingEnabled) {
+            frameCount = 0
+            fpsStartTime = System.currentTimeMillis()
+        }
     }
 
     private fun processImageWithNative() {
@@ -236,12 +252,33 @@ class CameraActivity : AppCompatActivity() {
                             processed = OpenCVUtils.processImageWithOpenCV(matAddr)
                         }
                         Log.d(TAG, "Native processed in ${processMs}ms")
+                        if (processed) {
+                            val bmp = OpenCVUtils.matToBitmap(matAddr, w, h)
+                            if (bmp != null) {
+                                runOnUiThread {
+                                    ivProcessed.setImageBitmap(bmp)
+                                }
+                            }
+                        }
                         OpenCVUtils.releaseMat(matAddr)
                     }
 
                     if (processed) {
+                        frameCount += 1
+                        val now = System.currentTimeMillis()
+                        if (fpsStartTime == 0L) fpsStartTime = now
+                        val elapsed = now - fpsStartTime
+                        if (elapsed >= 1000L) {
+                            val fps = (frameCount * 1000f) / elapsed
+                            Log.d(TAG, "AVG FPS: ${"%.1f".format(fps)} over ${elapsed}ms")
+                            runOnUiThread {
+                                tvFps.text = "FPS: ${"%.1f".format(fps)}"
+                            }
+                            frameCount = 0
+                            fpsStartTime = now
+                        }
                         runOnUiThread {
-                            updateStatus("Frame processed at ${System.currentTimeMillis()}")
+                            tvResolution.text = "${w}x${h}"
                         }
                     }
                     

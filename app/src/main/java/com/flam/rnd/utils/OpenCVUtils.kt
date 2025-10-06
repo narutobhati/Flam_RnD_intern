@@ -29,6 +29,7 @@ object OpenCVUtils {
         yStride: Int,
         uvStride: Int
     ): Long
+    external fun nativeMatToRgbaBytes(matAddr: Long, outRgba: ByteArray, width: Int, height: Int): Boolean
     
     /**
      * Initialize OpenCV library
@@ -124,6 +125,24 @@ object OpenCVUtils {
         // For now, return placeholder
         Log.d(TAG, "Converting bitmap ${bitmap.width}x${bitmap.height} to Mat")
         return 0L
+    }
+
+    /**
+     * Convert RGBA Mat (native) to Bitmap for preview
+     */
+    fun matToBitmap(matAddr: Long, width: Int, height: Int): Bitmap? {
+        if (matAddr == 0L || width <= 0 || height <= 0) return null
+        val buffer = ByteArray(width * height * 4)
+        val ok = nativeMatToRgbaBytes(matAddr, buffer, width, height)
+        if (!ok) return null
+        return try {
+            Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888).also { bmp ->
+                bmp.copyPixelsFromBuffer(java.nio.ByteBuffer.wrap(buffer))
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "matToBitmap failed: ${e.message}", e)
+            null
+        }
     }
     
     /**

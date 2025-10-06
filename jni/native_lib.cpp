@@ -2,6 +2,7 @@
 #include <string>
 #include <android/log.h>
 #include <chrono>
+#include <cstring>
 
 #ifdef HAVE_OPENCV
 #include <opencv2/opencv.hpp>
@@ -233,5 +234,67 @@ Java_com_flam_rnd_utils_OpenCVUtils_nativeConvertYUV420ToRGB(
 #else
     (void)env; (void)yArr; (void)uArr; (void)vArr; (void)width; (void)height; (void)yStride; (void)uvStride;
     return 0;
+#endif
+}
+
+extern "C" JNIEXPORT jboolean JNICALL
+Java_com_flam_rnd_utils_OpenCVUtils_nativeMatToRgbaBytes(
+        JNIEnv* env,
+        jobject /* this */, jlong matAddr, jbyteArray outArray, jint width, jint height) {
+#ifdef HAVE_OPENCV
+    if (matAddr == 0 || outArray == nullptr || width <= 0 || height <= 0) {
+        LOGE("nativeMatToRgbaBytes: invalid arguments");
+        return JNI_FALSE;
+    }
+    cv::Mat& src = *(cv::Mat*) matAddr;
+    if (src.empty()) {
+        LOGE("nativeMatToRgbaBytes: empty mat");
+        return JNI_FALSE;
+    }
+
+    cv::Mat rgba;
+    if (src.type() == CV_8UC4) {
+        rgba = src; // shallow copy
+    } else if (src.type() == CV_8UC1) {
+        cv::cvtColor(src, rgba, cv::COLOR_GRAY2RGBA);
+    } else if (src.type() == CV_8UC3) {
+        cv::cvtColor(src, rgba, cv::COLOR_RGB2RGBA);
+    } else {
+        try {
+            cv::cvtColor(src, rgba, cv::COLOR_BGR2RGBA);
+        } catch (...) {
+            LOGE("nativeMatToRgbaBytes: unsupported mat type %d", src.type());
+            return JNI_FALSE;
+        }
+    }
+
+    const int expectedBytes = width * height * 4;
+    const jsize outLen = env->GetArrayLength(outArray);
+    if (outLen < expectedBytes) {
+        LOGE("nativeMatToRgbaBytes: out buffer too small (%d < %d)", (int)outLen, expectedBytes);
+        if (rgba.data != src.data) rgba.release();
+        return JNI_FALSE;
+    }
+
+    // Copy row by row to handle potential step differences
+    jboolean isCopy = JNI_FALSE;
+    jbyte* outPtr = env->GetByteArrayElements(outArray, &isCopy);
+    if (outPtr == nullptr) {
+        if (rgba.data != src.data) rgba.release();
+        return JNI_FALSE;
+    }
+
+    const int rowBytes = width * 4;
+    for (int r = 0; r < height; ++r) {
+        const unsigned char* srcRow = rgba.ptr<unsigned char>(r);
+        std::memcpy(outPtr + r * rowBytes, srcRow, rowBytes);
+    }
+
+    env->ReleaseByteArrayElements(outArray, outPtr, 0);
+    if (rgba.data != src.data) rgba.release();
+    return JNI_TRUE;
+#else
+    (void)env; (void)matAddr; (void)outArray; (void)width; (void)height;
+    return JNI_FALSE;
 #endif
 }
