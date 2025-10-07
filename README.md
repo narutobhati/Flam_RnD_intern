@@ -185,3 +185,6 @@ LOGI("Debug message: %s", message);
 ## License
 
 This project is open source. Please check the repository for license details.
+
+
+## Work in progress

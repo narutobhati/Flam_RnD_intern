@@ -82,7 +82,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     
     // OpenCV Android SDK dependency (if using Maven)
-    //implementation 'org.opencv:opencv:4.8.0'
+   // implementation 'org.opencv:opencv:4.8.0'
+   // implementation 'org.opencv:opencv-android:4.8.0'
 
     // Alternative: Local OpenCV SDK
     // implementation project(':opencv')
