@@ -1,4 +1,4 @@
-# Flam_RnD_intern
+# Flam_RnD_intern (IN PROGRESS)
 
 Android application with NDK + CMake support and OpenCV integration for computer vision and image processing.
 
@@ -186,5 +186,3 @@ LOGI("Debug message: %s", message);
 
 This project is open source. Please check the repository for license details.
 
-
-## Work in progress
